@@ -114,7 +114,7 @@ template <typename StrLike>
         std::same_as<std::decay_t<StrLike>, std::string_view> ||
         std::same_as<std::decay_t<StrLike>, char *> ||
         std::same_as<std::decay_t<StrLike>, const char *> ||
-        std::is_array_v<std::remove_reference_t<StrLike>>
+        (std::is_array_v<std::remove_reference_t<StrLike>> && std::same_as<std::remove_extent_t<std::remove_reference_t<StrLike>>, char>)
     )
 struct formatter<StrLike> {
     static constexpr auto parse(sv_t fmt) -> std::size_t {
